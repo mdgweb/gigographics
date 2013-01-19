@@ -52,6 +52,7 @@ class Gigographics(object):
 
         ## Add relevant events to the object
         for event in events:
+
             ## Event infos
             event_id = event.id
             event_start = event.event_start.datetime
@@ -74,7 +75,9 @@ class Gigographics(object):
                 'venue' : {
                     'name' : event.venue.display_name,
                     'lat' : venue_lat,
-                    'lng' : venue_lng
+                    'lng' : venue_lng,
+                    'city' : event.location.city,
+                    'country' : event.venue.metro_area.country
                 }
             }
 
