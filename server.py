@@ -22,6 +22,7 @@ def channel():
 ## Gigographics data
 @app.route('/gigographics/<artist_id>')
 def gigographics(artist_id):
+    artist_id = 'e8374874-4178-4869-b92e-fef6bf30dc04' ## Hardcoded while we fi the autocomplete with MBZ IDs
     g = Gigographics(artist_id)
     g.go()
     return jsonify(g.data)
