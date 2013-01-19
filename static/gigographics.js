@@ -36,6 +36,10 @@ window.onload = function() {
     var myOptions = {
         panControl: false,
         zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE,
+            position: google.maps.ControlPosition.LEFT_CENTER
+        },
         mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
