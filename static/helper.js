@@ -46,7 +46,7 @@ function add_marker(params) {
 }
 */	
 
-function concerts(artist_id) {
+function concerts(artist_id, artist_name) {
     // Update title
     $('#concerts h1').text(artist_name);
     // Get concert data
