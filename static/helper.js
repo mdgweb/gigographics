@@ -47,6 +47,9 @@ function add_marker(params) {
 */	
 
 function concerts(artist_id) {
+    // Update title
+    $('#concerts h1').text(artist_name);
+    // Get concert data
     $.ajax({
         'type': "GET",
 //        'xhrFields': {
