@@ -1,0 +1,23 @@
+from flask import Flask, jsonify, render_template, abort
+
+from gigographics import Gigographics
+
+## Flask APP
+app = Flask(__name__)
+
+## Main page
+@app.route('/')
+def home():
+    return "Hello, I'm the app frontend"
+
+## Gigographics data
+@app.route('/gigographics/<artist_id>')
+def gigographics(artist_id):
+    g = Gigographics(artist_id)
+    g.go()
+    return jsonify(g.data)
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run()
+    
