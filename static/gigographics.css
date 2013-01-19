@@ -3,6 +3,27 @@ body {
     margin:0px;
 }
 
+header {
+    width: 100%;
+    background: #444;
+    padding: 2px;
+    opacity: 0.6;
+    z-index: -10000;
+}
+
+footer {
+    height: 80px;
+    bottom: 0px;
+    clear: both;
+    position: absolute;
+    z-index: 10;
+}
+
+#search_form > input {
+    background: white;
+    opacity: 1;
+}
+
 #canvas_holder{
     position: fixed;
     top: 0px;
@@ -34,14 +55,6 @@ body {
         -ms-border-radius: 10px;
 }
 */
-
-footer {
-    height: 80px;
-    bottom: 0px;
-    clear: both;
-    position: absolute;
-    z-index: 10;
-}
 
 .concert_location {
     h4 {
