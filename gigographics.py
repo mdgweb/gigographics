@@ -21,18 +21,24 @@ class Gigographics(object):
         instagram = InstagramAPI(client_id=instagram_client, client_secret=instagram_secret)
         min_timestamp = timestamp - window[0]*3600
         max_timestamp = timestamp + window[1]*3600
-        media = instagram.media_search(lat=venue['lat'], lng=venue['lng'], min_timestamp=min_timestamp, max_timestamp=max_timestamp, distance=distance)
-        
-        ## Filter to get maching only pics in a location thates match the venue name
-        media = filter(lambda x: venue['name'].lower() in x.location.name.lower(), media)
 
-        ## Return pictures
-        return map(lambda media: {
-            'thumbnail' : media.images['thumbnail'].url,
-            'standard' : media.images['standard_resolution'].url,
-            'caption' : media.caption.text if media.caption else '',
-            'user' : media.user.username,
-        }, media)
+        try:
+            media = instagram.media_search(lat=venue['lat'], lng=venue['lng'], min_timestamp=min_timestamp, max_timestamp=max_timestamp, distance=distance)
+        
+            ## Filter to get maching only pics in a location thates match the venue name
+            media = filter(lambda x: venue['name'].lower() in x.location.name.lower(), media)
+
+            ## Return pictures
+            return map(lambda media: {
+                'thumbnail' : media.images['thumbnail'].url,
+                'standard' : media.images['standard_resolution'].url,
+                'caption' : media.caption.text if media.caption else '',
+                'user' : media.user.username,
+            }, media)
+
+        ## Instagram API errors
+        except:
+            return []
 
 
     def get_gigography(self):
