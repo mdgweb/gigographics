@@ -55,10 +55,6 @@ function concerts(artist_id, artist_name) {
     // Get concert data
     $.ajax({
         'type': "GET",
-//        'xhrFields': {
-//        'withCredentials': true
-//        },
-//        'crossDomain': true,
         url: "http://localhost:5000/gigographics/" + artist_id,
         dataType: "json",
         success: function(data) {
@@ -120,6 +116,8 @@ console.log(marker);
             'class' : 'place'
         }).text(value.name));
 
+        // Hide loading elements and show values
+        $('#concerts > #loading').hide();
         $('#concerts > ul').append(li);
     });
 }
