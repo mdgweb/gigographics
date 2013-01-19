@@ -16,6 +16,9 @@ window.onload = function() {
                             }
                         }));
                     }
+                },
+                error: function(error) {
+                    console.log(error);
                 }
             });
         },
@@ -58,7 +61,7 @@ window.onload = function() {
     var latLng = new google.maps.LatLng(59.32893,18.06491);
 
     var myOptions = {
-/*        panControl: false,
+        panControl: false,
         zoomControl: true,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.LARGE,
@@ -71,7 +74,7 @@ window.onload = function() {
         draggable: true,
         disableDoubleClickZoom: true,     //disable zooming
         scrollwheel: true,
-*/        zoom: 4,
+        zoom: 4,
         center: latLng,
         mapTypeId: google.maps.MapTypeId.ROADMAP //   ROADMAP; SATELLITE; HYBRID; TERRAIN;
     };

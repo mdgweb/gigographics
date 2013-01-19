@@ -69,6 +69,7 @@ a:hover {
     height: 350px;
     background: #555;
     padding: 20px;
+    line-height: 20px;
     text-align: center;
     font-size: 15px;
     opacity: 0.98;
@@ -79,19 +80,23 @@ a:hover {
     text-align: center;
 }
 
-#helper > p {
-    line-height: 20px;
-}
-
 /* Concert section */
 #concerts {
     color: #ddd;
     float: right;
-    width: 450px;
-    min-height: 300px;
+    width: 400px;
+    height: 450px;
     background: #555;
     opacity: 0.5;
     margin: 20px;
+}
+
+#concerts > #loading {
+    text-align: center;
+    font-size: 15px;
+}
+#concerts > #loading img {
+    margin-bottom: 10px;
 }
 
 #concerts > h1 {
