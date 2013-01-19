@@ -22,19 +22,34 @@ window.onload = function() {
         minLength: 3,
         select: function(event, ui) {
             var artist_id = ui.item.id;
-            // TODO: Do stuff here with the id
+            var artist_name = ui.item.label;
+
+            // Get the concert listing + pictures from the /gigography/artist_id URI
+            // Launch artist player
+            deezer_artist_player(artist_name)
         }
     });
-          
-    // Deezer player in iFrame w/ auto-resize
-    $(window).resize(function(e) {
-        var windowWidth = $(window).width();
-        var w = $('#player').attr('width', windowWidth);
-    });
-    var windowWidth = $(window).width();
-    var deezer_id = 30595446 // Get form API and update player for artist tracks
-    $('footer').html('<iframe id="player" scrolling="no" frameborder="0" allowTransparency="true" src="http://www.deezer.com/en/plugins/player?autoplay=true&&amp;height=80&amp;cover=true&amp;type=playlist&amp;id=' + deezer_id + '" width="' + windowWidth + '" height="80"></iframe>');
     
+    var windowWidth = $(window).width();
+    DZ.init({
+        appId  : '111393',
+        channelUrl : 'http://localhost:5000/channel',
+        player : {
+            container : 'player',
+            cover : true,
+            playlist : false,
+            width : windowWidth,
+            height : 80,
+        }
+    });
+
+    function deezer_artist_player(artist_name) {
+        DZ.api('/search/?q=' + artist_name + '&index=0&nb_items=5&output=json', function(response) {
+            var tracks = $.map(response.data, function(track) { return track.id })
+            DZ.player.playTracks(tracks);
+        });
+    }
+
     $.gigographics= new Array();
 
     /*
