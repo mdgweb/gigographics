@@ -8,41 +8,7 @@ var image = 'yourflag.png';
 icon: image
 
 //for animation marker drop
-animation: google.maps.Animation.DROP
-
-
-function add_marker(params) {
-    var markerlatlng = new google.maps.LatLng(params.lat, params.lng);
-
-    var marker = new google.maps.Marker({
-        position: markerlatlng,
-        title: params.title
-    });
-
-    marker.setMap($.gigographics.map);
-
-    var explanation= '<div class="concert_location">' +
-                            '<h4>' + params.title + '</h4>' +
-                            params.content +
-                    '</div>'
-    
-    myInfoWindowOptions = {
-        content: explanation,
-        maxWidth: 275
-    };
-
-    infoWindow = new google.maps.InfoWindow(myInfoWindowOptions);
-
-    google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.open($.gigographics.map, marker);
-    });
-
-    google.maps.event.addListener(marker, 'dragstart', function(){
-        infoWindow.close();
-    });
-
-    infoWindow.open($.gigographics.map, marker);
-    
+animation: google.maps.Animation.DROP    
 }
 */	
 
@@ -95,6 +61,8 @@ function generate_map(locations) {
             return function() {
                 infowindow.setContent(explanation);
                 infowindow.open($.gigographics.map, marker);
+                var latLng = marker.getPosition(); // returns LatLng object
+                $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
             }
         })(marker, i));
 
@@ -128,6 +96,8 @@ function generate_map(locations) {
         var i= $(this).attr('marker-index');
         infowindow.setContent($.gigographics.explanations[i]);
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
+        var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
+        $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
     });
     
 }
