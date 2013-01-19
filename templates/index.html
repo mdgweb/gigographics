@@ -12,8 +12,8 @@
         <!-- google maps -->
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
         <!-- instakick code -->
-        <script src="../static/gigographics.js"></script>
-        <script src="../static/helper.js"></script>
+        <script src="/static/gigographics.js"></script>
+        <script src="/static/helper.js"></script>
     </head>
     <body>
         <article>
@@ -30,7 +30,12 @@
             </div>
 
             <footer>
-                <iframe scrolling="no" frameborder="0" allowTransparency="true" src="http://www.deezer.com/en/plugins/player?autoplay=false&amp;playlist=false&amp;width=800&amp;height=80&amp;cover=true&amp;type=playlist&amp;id=30595446" width="800" height="80"></iframe>
+                <script>
+                // FIXME - Ådd autorezize
+                var windowWidth = $(window).width();
+                var deezer_id = 30595446 // Get form API and update player for artist tracks
+                $('footer').html('<iframe scrolling="no" frameborder="0" allowTransparency="true" src="http://www.deezer.com/en/plugins/player?autoplay=true&amp;amp;width=' + windowWidth + '&amp;height=80&amp;cover=true&amp;type=playlist&amp;id=' + deezer_id + '" width="' + windowWidth + '" height="80"></iframe>');
+                </script>
             </footer>
         </article>
 
