@@ -8,12 +8,14 @@ window.onload = function() {
                 dataType: "jsonp",
                 success: function(data) {
                     var artists = data.resultsPage.results.artist;
-                    response($.map(artists, function(artist) {
-                        return {
-                            label: artist.displayName,
-                            id: artist.id
-                        }
-                    }));
+                    if (artists != undefined) {
+                        response($.map(artists, function(artist) {
+                            return {
+                                label: artist.displayName,
+                                id: artist.id
+                            }
+                        }));
+                    }
                 }
             });
         },
