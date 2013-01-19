@@ -1,3 +1,6 @@
+# Gigographics - a MHD Stockholm experiment
+# (c) 2013 MDG Web - http://mdg.io && http://seevl.net
+
 from flask import Flask, jsonify, render_template, abort
 
 from gigographics import Gigographics

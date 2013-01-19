@@ -1,3 +1,6 @@
+# Gigographics - a MHD Stockholm experiment
+# (c) 2013 MDG Web - http://mdg.io && http://seevl.net
+
 from instagram.client import InstagramAPI
 from songkick import Songkick
 
