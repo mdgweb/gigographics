@@ -47,8 +47,11 @@ function add_marker(params) {
 */	
 
 function concerts(artist_id, artist_name) {
-    // Update title
+    // Hide helper
+    $('#helper').hide();
+    // Show concerts section
     $('#concerts h1').text(artist_name);
+    $('#concerts').show();
     // Get concert data
     $.ajax({
         'type': "GET",
