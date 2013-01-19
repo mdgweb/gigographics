@@ -79,7 +79,7 @@ function generate_map(locations) {
             position: new google.maps.LatLng(venue.lat, venue.lng),
             map: $.gigographics.map
         });
-
+console.log(marker);
         var explanation= '<div class="concert_location">' +
                         '<h4>' + venue.name + '</h4>' +
                         //'LAT: ' + locations[i][1] +
@@ -98,11 +98,10 @@ function generate_map(locations) {
         var li= $('<li>',{
             'class' : 'concert_trigger'
         })
-       .click(function(marker, i) {
-            return function() {
-                infowindow.setContent(explanation);
-                infowindow.open($.gigographics.map, marker);
-            }
+       .click(function() {
+            console.log('TRIGGER');
+            infowindow.setContent(explanation);
+            infowindow.open($.gigographics.map, marker);
         })
         .append($('<div>',{
             'class' : 'date'
