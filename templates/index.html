@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-	    <meta charset="utf-8">
-	    <title>MHD - InstaKick</title>
+        <meta charset="utf-8">
+        <title>MHD - InstaKick</title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="../static/gigographics.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/static/gigographics.css" media="screen" />
         <!-- Webfonts -->
         <link href="http://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet" type="text/css">
         <!-- jquery and friends -->
@@ -20,29 +20,29 @@
         <script src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
     </head>
     <body>
+        <!-- Deezer SDK -->
         <div id="dz-root"></div>
+        <!-- Main page -->
         <article>
+            <!-- Header including search form -->
             <header>
-                <!-- search form -->
                 <form id="search_form">
                     <input type="text" id="artist">
                 </form>
             </header>
-
-            <div id="concerts">
+            <!-- Gigography -->
+            <section id="concerts">
                 <h1></h1>
                 <ul></ul>
-            </div>
-
+            </section>
+            <!-- Deezer player -->
             <footer>
                 <div id="player" style="width:100%;" align="center"></div>
             </footer>
         </article>
-
-        <!--Google Maps APIv3 Background-->
+        <!-- Google Maps -->
         <div id="canvas_holder">
             <div id="map_canvas"></div>
-        </div><!-- End Google Maps Background -->
-        
+        </div>
     </body>
 </html>
