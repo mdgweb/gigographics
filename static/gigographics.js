@@ -1,5 +1,29 @@
 window.onload = function() {
 
+    // Autocompletion for artists
+    $("#artist").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "http://api.songkick.com/api/3.0/search/artists.json?apikey=hackday&query=" + request.term + "&jsoncallback=?",
+                dataType: "jsonp",
+                success: function(data) {
+                    var artists = data.resultsPage.results.artist;
+                    response($.map(artists, function(artist) {
+                        return {
+                            label: artist.displayName,
+                            id: artist.id
+                        }
+                    }));
+                }
+            });
+        },
+        minLength: 3,
+        select: function(event, ui) {
+            var artist_id = ui.item.id;
+            // TODO: Do stuff here with the id
+        }
+    });
+          
     $.gigographics= new Array();
 
     /*
