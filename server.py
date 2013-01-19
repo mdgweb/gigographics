@@ -2,6 +2,7 @@
 # (c) 2013 MDG Web - http://mdg.io && http://seevl.net
 
 from flask import Flask, jsonify, render_template, abort
+from settings import songkick_key
 
 from gigographics import Gigographics
 
@@ -11,7 +12,7 @@ app = Flask(__name__)
 ## Main page
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', songkick_key = songkick_key)
 
 ## Gigographics data
 @app.route('/gigographics/<artist_id>')
