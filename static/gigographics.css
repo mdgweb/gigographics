@@ -2,6 +2,7 @@ body {
     padding: 0px;
     margin:0px;
     font-family: 'Didact Gothic', sans-serif;
+    font-size: 13px;
 }
 
 header {
@@ -63,22 +64,26 @@ footer {
     }
 }
 
+/* Concert block */
 #concerts {
+    color: #fff;
     float: right;
-    width: 400px;
-    height: 600px;
-    background: #fff;
-    opacity: 0.6;
+    width: 450px;
+    min-height: 300px;
+    background: #555;
+    opacity: 0.5;
+    margin: 20px;
 }
 
 #concerts > h1 {
-    opacity: 1;
-    color: ;
-    font-weight: normal;
+    padding: 10px;
+    font-size: 300%;
     text-align: center;
 }
 
 #concerts > ul {
-    opacity: 1;
+    height: 300px;
+    padding: 5px;
     overflow: scroll;
+    font-size: 12px;
 }
