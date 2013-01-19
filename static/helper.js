@@ -46,13 +46,15 @@ function add_marker(params) {
 }
 */	
 
-function concerts(artist_id) {
+function concerts(artist_id, artist_name) {
+    // Hide helper
+    $('#helper').hide();
+    // Show concerts section
+    $('#concerts h1').text(artist_name);
+    $('#concerts').show();
+    // Get concert data
     $.ajax({
         'type': "GET",
-//        'xhrFields': {
-//        'withCredentials': true
-//        },
-//        'crossDomain': true,
         url: "http://localhost:5000/gigographics/" + artist_id,
         dataType: "json",
         success: function(data) {
@@ -115,8 +117,10 @@ function generate_map(locations) {
             'class' : 'place'
         }).text(value.name));
 
-        $('#concerts').append(li);
-
+        // Hide loading elements and show values
+        $('#concerts > #loading').hide();
+        $('#concerts > ul').append(li);
+        
         i++;
     });
 

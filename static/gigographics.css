@@ -2,6 +2,7 @@ body {
     padding: 0px;
     margin:0px;
     font-family: 'Didact Gothic', sans-serif;
+    font-size: 13px;
 }
 
 header {
@@ -19,11 +20,21 @@ footer {
     z-index: 10;
 }
 
+a {
+    color: #222;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Search form */
 #search_form > input {
     background: white;
     opacity: 1;
 }
 
+/* Map elements */
 #canvas_holder{
     position: fixed;
     top: 0px;
@@ -42,19 +53,6 @@ footer {
     overflow: "hidden";
 }
 
-/* 
-#article{
-        z-index: 1000;
-        position: absolute;
-        color: white;
-        padding: 10px;
-	        border-radius: 10px;
-        -moz-border-radius: 10px;
-        -o-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        -ms-border-radius: 10px;
-}
-*/
 
 .concert_location {
     h4 {
@@ -63,22 +61,53 @@ footer {
     }
 }
 
+/* Helper section */
+#helper {
+    color: #ddd;
+    margin: 50px auto 0 auto;
+    width: 800px;
+    height: 350px;
+    background: #555;
+    padding: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 15px;
+    opacity: 0.98;
+}
+
+#helper > h1 {
+    font-size: 400%;
+    text-align: center;
+}
+
+/* Concert section */
 #concerts {
+    color: #ddd;
     float: right;
     width: 400px;
-    height: 600px;
-    background: #fff;
-    opacity: 0.6;
+    height: 450px;
+    background: #555;
+    opacity: 0.5;
+    margin: 20px;
+}
+
+#concerts > #loading {
+    text-align: center;
+    font-size: 15px;
+}
+#concerts > #loading img {
+    margin-bottom: 10px;
 }
 
 #concerts > h1 {
-    opacity: 1;
-    color: ;
-    font-weight: normal;
+    padding: 10px;
+    font-size: 300%;
     text-align: center;
 }
 
 #concerts > ul {
-    opacity: 1;
+    height: 300px;
+    padding: 5px;
     overflow: scroll;
+    font-size: 12px;
 }
