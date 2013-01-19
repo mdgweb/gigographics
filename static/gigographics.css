@@ -111,3 +111,15 @@ a:hover {
     overflow: scroll;
     font-size: 12px;
 }
+
+/* Instagram section */
+#instagram {
+    display: none;
+    color: #ddd;
+    float: left;
+    width: 400px;
+    height: 450px;
+    background: #555;
+    opacity: 0.5;
+    margin: 20px;
+}

@@ -54,6 +54,7 @@ window.onload = function() {
     }
 
     $.gigographics= new Array();
+    $.gigographics.id= new Array();
     $.gigographics.markers= new Array();
     $.gigographics.explanations= new Array();
 

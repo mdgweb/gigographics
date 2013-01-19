@@ -34,8 +34,15 @@ function concerts(artist_id, artist_name) {
 
 function generate_map(locations) {
 
+    $('#instagram').hide();
+
+    $.gigographics.id= [];
     $.gigographics.markers= [];
     $.gigographics.explanations= [];
+
+    // Clear list
+    $('#concerts > ul').html('');
+    
 
     var infowindow = new google.maps.InfoWindow();
 
@@ -53,7 +60,7 @@ function generate_map(locations) {
         var explanation= '<div class="concert_location">' +
                         '<h4>' + venue.name + '</h4>' +
                         //'LAT: ' + locations[i][1] +
-                        //'LONG: ' + locations[i][2] +
+                        //'LONG: ' + locations[i][2] +<img src="slider-1.jpg" />
                         '<a>Link to instagram images</a>' +
                         '</div>'
 
@@ -63,6 +70,7 @@ function generate_map(locations) {
                 infowindow.open($.gigographics.map, marker);
                 var latLng = marker.getPosition(); // returns LatLng object
                 $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
+                instagram(value.pictures, i);
             }
         })(marker, i));
 
@@ -72,7 +80,8 @@ function generate_map(locations) {
         // Generate list
         var li= $('<li>',{
             'class' : 'concert_trigger',
-            'marker-index' : i
+            'marker-index' : i,
+            'marker-id' : key
         })
         .append($('<div>',{
             'class' : 'date'
@@ -98,6 +107,22 @@ function generate_map(locations) {
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
         var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
         $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
+        instagram(locations[$(this).attr('marker-id')].pictures);
     });
     
+}
+
+function instagram(data) {
+    $('#instagram > ul').html('');
+    $('#instagram').show();
+    console.log(data);
+    $.each(data, function(key, value) {
+        var li= $('<li>', {
+            'class' : 'instagram_trigger'
+        })
+        .append($('<img />', {
+            'src' : value.thumbnail
+        }));
+        $('#instagram > ul').append(li);
+    });
 }
