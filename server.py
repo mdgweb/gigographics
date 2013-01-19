@@ -14,6 +14,11 @@ app = Flask(__name__)
 def home():
     return render_template('index.html', songkick_key = songkick_key)
 
+## Deezer channel file
+@app.route('/channel')
+def channel():
+    return render_template('channel.html')
+
 ## Gigographics data
 @app.route('/gigographics/<artist_id>')
 def gigographics(artist_id):
