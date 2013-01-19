@@ -23,7 +23,7 @@ window.onload = function() {
         select: function(event, ui) {
             var artist_id = ui.item.id;
             var artist_name = ui.item.label;
-            concerts(artist_id);
+            concerts(artist_id, artist_name);
             // Get the concert listing + pictures from the /gigography/artist_id URI
             // Launch artist player
             deezer_artist_player(artist_name)
