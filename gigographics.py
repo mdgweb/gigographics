@@ -17,41 +17,31 @@ class Gigographics(object):
     def instagraph_pictures(self, venue, timestamp, window):
         """Get Instagram pictures for a venue/location in a give timeframe"""
         
-        ## Pictures
-        pictures = []
-        
-        ## Get instagram locations around this lat/long with a name matching/including the venue name
+        ## Get instagram pictures taken 200m from the venue in a time window arount the start date
         instagram = InstagramAPI(client_id=instagram_client, client_secret=instagram_secret)
-        locations = filter(lambda x: venue['name'].lower() in x.name.lower(), instagram.location_search(lat=venue['lat'], lng=venue['lng']))
-        
-        ## Get pictures for each location
-        for location in locations:
-            ## Get Instagram pictures for local events with a window around the starting date
-            min_timestamp = timestamp - window[0]*3600
-            max_timestamp = timestamp + window[1]*3600
-            
-            recent_media = instagram.location_recent_media(location_id=location.id, min_timestamp=min_timestamp, max_timestamp=max_timestamp)[0]
-            
-            ## Add to pictures list with caption and user info
-            for media in recent_media:
-                pictures.append({
-                    'thumbnail' : media.images['thumbnail'].url,
-                    'standard' : media.images['standard_resolution'].url,
-                    'caption' : media.caption.text if media.caption else '',
-                    'user' : media.user.username,
-                })
-                
-        return pictures
+        min_timestamp = timestamp - window[0]*3600
+        max_timestamp = timestamp + window[1]*3600
+        distance = 0.2
+        return map(lambda media: {
+            'thumbnail' : media.images['thumbnail'].url,
+            'standard' : media.images['standard_resolution'].url,
+            'caption' : media.caption.text if media.caption else '',
+            'user' : media.user.username,
+        }, instagram.media_search(lat=venue['lat'], lng=venue['lng'], min_timestamp=min_timestamp, max_timestamp=max_timestamp, distance=distance))
+
 
     def get_gigography(self):
         """Get SongKick gigography for an artist"""
 
         ## Get SongKick gigography and skip events w/o geolocation nor start_date
         songkick = Songkick(api_key=songkick_key)
-        events = songkick.gigography.query(artist_id=self.artist_id, order='desc', per_page=max_gigs)
+        for event in songkick.gigography.query(artist_id=self.artist_id, order='desc', per_page=max_gigs):
 
-        ## Add relevant events to the object
-        for event in events:
+            ## Coordinates required 
+            venue_lat = event.venue.latitude
+            venue_lng = event.venue.longitude
+            if not(venue_lat and venue_lng):
+                continue
 
             ## Event infos
             event_id = event.id
@@ -60,12 +50,6 @@ class Gigographics(object):
                 timestamp = calendar.timegm(event_start.timetuple())
             else:
                 continue ## FIXME
-
-            ## Coordinates required 
-            venue_lat = event.venue.latitude
-            venue_lng = event.venue.longitude
-            if not(venue_lat and venue_lng):
-                continue
 
             ## Append to dictionary
             self.data[event_id] = {
@@ -89,14 +73,9 @@ class Gigographics(object):
             gig = self.data[event_id]
             ## Get instagram pictures taken from 2-hours-before to 4-hours-after a show for the venue name + location
             window = [2,4]
-            pictures = self.instagraph_pictures(gig['venue'], gig['timestamp'], window)
-            ## Keep only events with pictures
-            if pictures:
-                self.data[event_id].update({
-                    'pictures' : pictures
-                })
-            else:
-                del self.data[event_id]
+            self.data[event_id].update({
+                'pictures' : self.instagraph_pictures(gig['venue'], gig['timestamp'], window)
+            })
 
     def go(self):
         self.get_gigography()
