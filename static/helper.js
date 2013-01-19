@@ -117,6 +117,6 @@ console.log(marker);
             'class' : 'place'
         }).text(value.name));
 
-        $('#concerts').append(li);
+        $('#concerts > ul').append(li);
     });
 }
