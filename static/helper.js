@@ -46,27 +46,78 @@ function add_marker(params) {
 }
 */	
 
-function add_markers(locations) {
+function concerts(artist_id) {
+    $.ajax({
+        'type': "GET",
+//        'xhrFields': {
+//        'withCredentials': true
+//        },
+//        'crossDomain': true,
+        url: "http://localhost:5000/gigographics/" + artist_id,
+        dataType: "json",
+        success: function(data) {
+           console.log('SUCCESS');
+           generate_map(data);
+        },
+        error : function(error) {
+           console.log('ERROR');
+           console.log(error);
+        }
+    });
+}
+
+function generate_map(locations) {
 
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
 
-    for (i = 0; i < locations.length; i++) {
+    $.each(locations, function(key, value) {
+
+        var venue= value.venue;
+           
+        // Generate markers
         marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            position: new google.maps.LatLng(venue.lat, venue.lng),
             map: $.gigographics.map
         });
+
         var explanation= '<div class="concert_location">' +
-                        '<h4>' + locations[i][0] + '</h4>' +
-                        'LAT: ' + locations[i][1] +
-                        'LONG: ' + locations[i][2] +
+                        '<h4>' + venue.name + '</h4>' +
+                        //'LAT: ' + locations[i][1] +
+                        //'LONG: ' + locations[i][2] +
+                        '<a>Link to instagram images</a>' +
                         '</div>'
+
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
+                console.log('ENTRO');
                 infowindow.setContent(explanation);
                 infowindow.open($.gigographics.map, marker);
             }
         })(marker, i));
-    }
+
+        // Generate list
+        var li= $('<li>',{
+            'class' : 'concert_trigger'
+        })
+       .click(function(marker, i) {
+            return function() {
+                infowindow.setContent(explanation);
+                infowindow.open($.gigographics.map, marker);
+            }
+        })
+        .append($('<div>',{
+            'class' : 'date'
+        }).text(value.date))
+        /*        .append($('<div>',{
+            'class' : 'city'
+        }).text(value.))
+        */
+        .append($('<div>',{
+            'class' : 'place'
+        }).text(value.name));
+
+        $('#concerts').append(li);
+    });
 }

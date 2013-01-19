@@ -1,12 +1,12 @@
 status: 200
 content-length: 17191
 content-location: http://api.songkick.com/api/3.0/artists/211206/gigography.json?per_page=10&apikey=hackday&order=desc
-expires: Sat, 19 Jan 2013 15:47:55 GMT
+expires: Sat, 19 Jan 2013 18:40:44 GMT
 vary: Accept-Encoding
 connection: close
 -content-encoding: gzip
 cache-control: private, max-age=3600
-date: Sat, 19 Jan 2013 14:47:55 GMT
+date: Sat, 19 Jan 2013 17:40:44 GMT
 content-type: application/json; charset=utf-8
 -varied-accept-encoding: gzip, deflate
 
