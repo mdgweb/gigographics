@@ -1,0 +1,56 @@
+#canvas_holder{
+    position: fixed;
+    top: 0px;
+        left: 0px;
+        width:100%;
+        height:100%;
+    z-index: -10;
+}
+
+#map_canvas{
+    width:100%;
+    height:100%;
+        position: "absolute";
+        top: 0px;
+        left: 0px;
+        overflow: "hidden";
+}
+ 
+#article{
+        z-index: 1000;
+        position: absolute;
+        color: white;
+        padding: 10px;
+	        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -o-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -ms-border-radius: 10px;
+}
+
+.concert_location {
+    h4 {
+        display: block;
+        margin-bottom: 2px;
+    }
+}
+
+#concerts {
+    float: right;
+    width: 400px;
+    height: 600px;
+    background: #fff;
+    opacity: 0.6;
+}
+
+#concerts > h1 {
+    opacity: 1;
+    color: ;
+    font-weight: normal;
+    text-align: center;
+}
+
+#concerts > ul {
+    opacity: 1;
+    overflow: scroll;
+}
