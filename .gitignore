@@ -1,1 +1,3 @@
 *.pyc
+.songkick_cache
+*
