@@ -56,11 +56,9 @@ function concerts(artist_id) {
         url: "http://localhost:5000/gigographics/" + artist_id,
         dataType: "json",
         success: function(data) {
-           console.log('SUCCESS');
            generate_map(data);
         },
         error : function(error) {
-           console.log('ERROR');
            console.log(error);
         }
     });
@@ -91,7 +89,6 @@ function generate_map(locations) {
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-                console.log('ENTRO');
                 infowindow.setContent(explanation);
                 infowindow.open($.gigographics.map, marker);
             }
