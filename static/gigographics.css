@@ -5,9 +5,8 @@ body {
 
 header {
     width: 100%;
-    background: #444;
+    background: #555;
     padding: 2px;
-    opacity: 0.6;
     z-index: -10000;
 }
 
