@@ -11,7 +11,7 @@ app = Flask(__name__)
 ## Main page
 @app.route('/')
 def home():
-    return "Hello, I'm the app frontend"
+    return render_template('index.html')
 
 ## Gigographics data
 @app.route('/gigographics/<artist_id>')
