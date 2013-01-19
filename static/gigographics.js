@@ -51,6 +51,8 @@ window.onload = function() {
     }
 
     $.gigographics= new Array();
+    $.gigographics.markers= new Array();
+    $.gigographics.explanations= new Array();
 
     /*
      Basic Setup

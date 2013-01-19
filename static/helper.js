@@ -66,9 +66,12 @@ function concerts(artist_id) {
 
 function generate_map(locations) {
 
+    $.gigographics.markers= [];
+    $.gigographics.explanations= [];
+
     var infowindow = new google.maps.InfoWindow();
 
-    var marker, i;
+    var marker, i= 0;
 
     $.each(locations, function(key, value) {
 
@@ -79,7 +82,6 @@ function generate_map(locations) {
             position: new google.maps.LatLng(venue.lat, venue.lng),
             map: $.gigographics.map
         });
-console.log(marker);
         var explanation= '<div class="concert_location">' +
                         '<h4>' + venue.name + '</h4>' +
                         //'LAT: ' + locations[i][1] +
@@ -94,14 +96,13 @@ console.log(marker);
             }
         })(marker, i));
 
+        $.gigographics.markers[i]= marker;
+        $.gigographics.explanations[i]= explanation;
+
         // Generate list
         var li= $('<li>',{
-            'class' : 'concert_trigger'
-        })
-       .click(function() {
-            console.log('TRIGGER');
-            infowindow.setContent(explanation);
-            infowindow.open($.gigographics.map, marker);
+            'class' : 'concert_trigger',
+            'marker-index' : i
         })
         .append($('<div>',{
             'class' : 'date'
@@ -115,5 +116,14 @@ console.log(marker);
         }).text(value.name));
 
         $('#concerts').append(li);
+
+        i++;
     });
+
+    $('.concert_trigger').on('click', function(event) {
+        var i= $(this).attr('marker-index');
+        infowindow.setContent($.gigographics.explanations[i]);
+        infowindow.open($.gigographics.map, $.gigographics.markers[i]);
+    });
+    
 }
