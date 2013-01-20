@@ -2,16 +2,6 @@
  * MARKER
  ***************************************/
 
-/*
-//for custom image
-var image = 'yourflag.png';
-icon: image
-
-//for animation marker drop
-animation: google.maps.Animation.DROP
-}
-*/	
-
 function hide_helper() {
     $('#helper').hide();
     $('footer').show();
@@ -85,7 +75,6 @@ function generate_map(locations) {
                 infowindow.setContent(content);
                 infowindow.open($.gigographics.map, marker);
                 var latLng = marker.getPosition(); // returns LatLng object
-//                $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
                 var offset= ($(document).width() - 800) / 2;
                 offsetCenter(latLng, offset, 0);
                 instagram(value.pictures, i);
@@ -104,10 +93,6 @@ function generate_map(locations) {
         .append($('<div>',{
             'class' : 'date'
         }).text(value.date))
-        /*        .append($('<div>',{
-            'class' : 'city'
-        }).text(value.))
-        */
         .append($('<div>',{
             'class' : 'place'
         }).text(value.name));
@@ -132,7 +117,6 @@ function generate_map(locations) {
         infowindow.setContent($.gigographics.content[i]);
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
         var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
-        //$.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
         var offset= ($(document).width() - 800) / 2;
         offsetCenter(latLng, offset, 0);
         instagram(locations[$(this).attr('marker-id')].pictures);
@@ -151,16 +135,6 @@ function instagram(data) {
             });
             $('#instagram > #galleria').append(li);
         });
-/*        var slider_options= {
-            width : 400,
-            height : 450,
-            opacity : 1.0,
-            links : false
-        }
-        slider_options.navigation = (data.length > 1) ? true: false;
-        $('#instagram > a').ready(function() {
-*/
-        //Galleria.run('#galleria');
         $('#galleria').galleria({
             width: 400,
             height: 450
