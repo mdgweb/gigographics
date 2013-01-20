@@ -61,6 +61,7 @@ window.onload = function() {
         'markers' : [],
         'content' : [],
     }
+    
 }
 
 // Deezer player setup
