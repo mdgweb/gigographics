@@ -51,11 +51,11 @@ function generate_map(locations) {
         var songs = value.songs;
         var setlist = '';
         if(songs != undefined) {
-            setlist = '<ul>';
+            setlist = '<ol>';
             $.each(songs, function(index, song) {
                 setlist += '<li><a href="#" class="play_song" data-song_title="' + song['title'] + '" data-artist_name="' + song['artist']['name'] + '">' + song['title'] + '</a></li>'
             });
-            setlist += '</ul>'
+            setlist += '</ol>'
         }
 
         var venue= value.venue;
