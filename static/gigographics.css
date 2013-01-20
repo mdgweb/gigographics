@@ -21,7 +21,7 @@ footer {
 }
 
 a {
-    color: #222;
+    color: #999;
     text-decoration: none;
 }
 a:hover {
@@ -36,6 +36,7 @@ a:hover {
 
 #helper .search_form > input {
     font-size: 30px;
+    width: 500px;
     padding: 10px;
 }
 
@@ -71,15 +72,15 @@ a:hover {
 /* Helper section */
 #helper {
     color: #ddd;
-    margin: 100px auto 0 auto;
+    margin: 80px auto 0 auto;
     width: 800px;
-    height: 350px;
+    height: 400px;
     background: #555;
     padding: 20px;
     line-height: 20px;
     text-align: center;
     font-size: 15px;
-    opacity: 0.98;
+
 }
 
 #helper > h1 {
@@ -90,6 +91,26 @@ a:hover {
 
 #helper .head {
     font-size: 20px;
+}
+
+#helper img.deezer {
+    width: 80px;
+    margin-bottom: 5px;
+}
+#helper img.instagram {
+    width: 50px;
+}
+#helper img.musicbrainz {
+    width: 80px;
+    margin-bottom: 1px;
+}
+#helper img.setlist {
+    width: 100px;
+    margin-bottom: 15px;
+    
+}
+#helper img.songkick {
+    width: 50px;
 }
 
 /* Concert section */
