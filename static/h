@@ -8,30 +8,20 @@ var image = 'yourflag.png';
 icon: image
 
 //for animation marker drop
-animation: google.maps.Animation.DROP
+animation: google.maps.Animation.DROP    
 }
 */	
 
-function hide_helper() {
-    $('#helper').hide();
-    $('footer').show();
-    $('header').show();
-    $('#concerts').show();
-}
-
 function concerts(artist_id, artist_name) {
-    // Play artist
-    deezer_play_artist(artist_name);
-    
-    // Hide helper and show header + footer
-    hide_helper()
-
+    // Hide helper
+    $('#helper').hide();
     // Show concerts section
     $('#concerts h1').text(artist_name);
+    $('#concerts').show();
     // Get concert data
     $.ajax({
         'type': "GET",
-        url: "/gigographics/" + artist_id,
+        url: "http://localhost:5000/gigographics/" + artist_id,
         dataType: "json",
         success: function(data) {
            generate_map(data);
@@ -43,11 +33,22 @@ function concerts(artist_id, artist_name) {
 }
 
 function generate_map(locations) {
+
     $('#instagram').hide();
+
+    $.gigographics = {
+        'id' : [],
+        'markers' : [],
+        'content' : []
+    }
+    //.id= [];
+//    $.gigographics.markers= [];
+  //  $.gigographics.content= [];
 
     // Clear list
     $('#concerts > ul').html('');
     
+
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i= 0;
@@ -58,21 +59,22 @@ function generate_map(locations) {
         var songs = value.songs;
         var setlist = '';
         if(songs != undefined) {
-            setlist = '<ol>';
+            setlist = '<ul>'
             $.each(songs, function(index, song) {
-                setlist += '<li><a href="#" class="play_song" data-song_title="' + song['title'] + '" data-artist_name="' + song['artist']['name'] + '">' + song['title'] + '</a></li>'
+                setlist += '<li>' + song['title'] + '</li>'
             });
-            setlist += '</ol>'
+            setlist += '</ul>'
         }
 
-        var venue= value.venue;
-           
-        // Generate markers
+        // Generate marker
+        var venue = value.venue;
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(venue.lat, venue.lng),
             map: $.gigographics.map
         });
-        var content = '' +
+        
+        // Market content
+        var content = ''+
             '<div class="concert_location">' +
                 '<h4>' + venue.name + '</h4>' +
                 setlist +
@@ -88,6 +90,7 @@ function generate_map(locations) {
             }
         })(marker, i));
 
+        // Add to local variables
         $.gigographics.markers[i] = marker;
         $.gigographics.content[i] = content;
 
@@ -115,47 +118,28 @@ function generate_map(locations) {
         i++;
     });
 
-    $(document).on("click", "a.play_song", function(e) {
-        var song = $(this).attr('data-song_title');
-        var artist = $(this).attr('data-artist_name');
-        return deezer_play_track(song, artist);
-    });
-    
     $('.concert_trigger').on('click', function(event) {
-        var i = $(this).attr('marker-index');
+        var i= $(this).attr('marker-index');
         infowindow.setContent($.gigographics.content[i]);
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
         var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
         $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
         instagram(locations[$(this).attr('marker-id')].pictures);
     });
-
+    
 }
 
 function instagram(data) {
-    $('#instagram').html('');
+    $('#instagram > ul').html('');
     $('#instagram').show();
-    if(data) {
-        $.each(data, function(key, value) {
-            var li= $('<a>', {
-                'href' : '#'
-            })
-            .append($('<img />', {
-                'src' : value.standard
-            }));
-            $('#instagram').append(li);
-        });
-        var slider_options= {
-            width : 400,
-            height : 450,
-            opacity : 1.0,
-            links : false
-        }
-        slider_options.navigation = (data.length > 1) ? true: false;
-        $('#instagram > a').ready(function() {
-            $('#instagram').coinslider(slider_options);
-        });
-    } else {
-        $('#instagram').html('NO PICTURES FOUND');
-    }
+    console.log(data);
+    $.each(data, function(key, value) {
+        var li= $('<li>', {
+            'class' : 'instagram_trigger'
+        })
+        .append($('<img />', {
+            'src' : value.thumbnail
+        }));
+        $('#instagram > ul').append(li);
+    });
 }
