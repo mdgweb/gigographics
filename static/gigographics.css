@@ -142,8 +142,23 @@ a:hover {
 #concerts > ul {
     height: 300px;
     padding: 5px;
+    margin-top: -15px;
     overflow: scroll;
     font-size: 12px;
+}
+
+#concerts > ul > li {
+    margin-bottom: 5px;
+}
+
+#concerts > ul > li .date {
+    font-weight: bold;
+    font-size: large;
+}
+
+#concerts > ul > li:hover {
+    background: black;
+    cursor: pointer;
 }
 
 /* Instagram section */
