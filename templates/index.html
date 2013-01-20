@@ -25,17 +25,19 @@
         <!-- Main page -->
         <article>
             <!-- Header including search form -->
-            <header>
-                <form id="search_form">
-                    <input type="text" id="artist">
+            <header style="display:none;">
+                <form class="search_form">
+                    <input type="text" class="artist">
                 </form>
             </header>
             <!-- Helper -->
             <section id="helper">
                 <h1>InstaKickZeer</h1>
                 <p>
-                    <a href="">Instagram</a> meets <a href="">SongKick</a> meets <a href="">Deezer</a><br/>
-                    Search for any artist on the top-left, and enjoy pictures and music from their last gig
+                    <span class="head">Enjoy the setlists and pictures of your favorite artists' gigography</span>
+                    <form class="search_form">
+                        <input type="text" class="artist">
+                    </form>
                 </p>
                 <p>
                     A experiment from <a href="">MusicHackDay Stockholm 2013</a> by <a href="">@terraces</a> and <a href="">@Ciack404</a><br/>
@@ -57,7 +59,7 @@
                 <ul></ul>
             </section>
             <!-- Deezer player -->
-            <footer>
+            <footer style="display:none;">
                 <div id="player"></div>
             </footer>
         </article>

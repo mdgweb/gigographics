@@ -15,9 +15,11 @@ animation: google.maps.Animation.DROP
 function concerts(artist_id, artist_name) {
     // Play artist
     deezer_play_artist(artist_name);
-    
-    // Hide helper
+    // Hide helper and show header + footer
     $('#helper').hide();
+    $('footer').show();
+    $('header').show();
+
     // Show concerts section
     $('#concerts h1').text(artist_name);
     $('#concerts').show();

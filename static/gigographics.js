@@ -1,7 +1,7 @@
 window.onload = function() {
 
     // Autocompletion for artists
-    $("#artist").autocomplete({
+    $(".artist").autocomplete({
         source: function(request, response) {
             $.ajax({
                 url: "http://api.songkick.com/api/3.0/search/artists.json?apikey=hackday&query=" + request.term + "&jsoncallback=?",
