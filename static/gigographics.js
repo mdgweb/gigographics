@@ -27,30 +27,12 @@ window.onload = function() {
             var artist_id = ui.item.id;
             var artist_name = ui.item.label;
             concerts(artist_id, artist_name);
-            // Get the concert listing + pictures from the /gigography/artist_id URI
-            // Launch artist player
-            deezer_artist_player(artist_name)
         }
     });
     
-    var windowWidth = $(window).width();
-    DZ.init({
-        appId  : '111393',
-        channelUrl : 'http://localhost:5000/channel',
-        player : {
-            container : 'player',
-            cover : true,
-            playlist : false,
-            width : windowWidth,
-            height : 80,
-        }
-    });
+    set_deezer_player()
 
-
-    $.gigographics= new Array();
-    $.gigographics.id= new Array();
-    $.gigographics.markers= new Array();
-    $.gigographics.explanations= new Array();
+//    $.gigographics = new Array();
 
     /*
      Basic Setup
@@ -79,7 +61,21 @@ window.onload = function() {
     $.gigographics.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 }
 
-function deezer_player(query) {
+function set_deezer_player() {
+    DZ.init({
+        appId  : '111393',
+        channelUrl : 'http://localhost:5000/channel',
+        player : {
+            container : 'player',
+            cover : true,
+            playlist : false,
+            width : $(window).width(),
+            height : 80,
+        }
+    });
+}
+
+function deezer_play(query) {
     DZ.api('/search/?q=' + query + '&index=0&nb_items=5&output=json', function(response) {
         var tracks = $.map(response.data, function(track) { return track.id })
         if(tracks.length) {
@@ -87,11 +83,11 @@ function deezer_player(query) {
         }
     });
 }
-function deezer_track_player(artist_name, track_name) {
-    return deezer_player(artist_name + '+' + track_name);
+function deezer_play_track(artist_name, track_name) {
+    return deezer_play(artist_name + '+' + track_name);
 }
 
-function deezer_artist_player(artist_name) {
-    return deezer_player(artist_name);
+function deezer_play_artist(artist_name) {
+    return deezer_play(artist_name);
 }
 

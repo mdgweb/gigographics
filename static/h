@@ -13,9 +13,6 @@ animation: google.maps.Animation.DROP
 */	
 
 function concerts(artist_id, artist_name) {
-    // Play artist
-    deezer_play_artist(artist_name);
-    
     // Hide helper
     $('#helper').hide();
     // Show concerts section
@@ -40,13 +37,18 @@ function generate_map(locations) {
     $('#instagram').hide();
 
     $.gigographics = {
+        'id' : [],
         'markers' : [],
-        'content' : [],
+        'content' : []
     }
+    //.id= [];
+//    $.gigographics.markers= [];
+  //  $.gigographics.content= [];
 
     // Clear list
     $('#concerts > ul').html('');
     
+
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i= 0;
@@ -57,21 +59,22 @@ function generate_map(locations) {
         var songs = value.songs;
         var setlist = '';
         if(songs != undefined) {
-            setlist = '<ul>';
+            setlist = '<ul>'
             $.each(songs, function(index, song) {
-                setlist += '<li><a href="#" class="play_song" data-song_title="' + song['title'] + '" data-artist_name="' + song['artist']['name'] + '">' + song['title'] + '</a></li>'
+                setlist += '<li>' + song['title'] + '</li>'
             });
             setlist += '</ul>'
         }
 
-        var venue= value.venue;
-           
-        // Generate markers
+        // Generate marker
+        var venue = value.venue;
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(venue.lat, venue.lng),
             map: $.gigographics.map
         });
-        var content = '' +
+        
+        // Market content
+        var content = ''+
             '<div class="concert_location">' +
                 '<h4>' + venue.name + '</h4>' +
                 setlist +
@@ -87,6 +90,7 @@ function generate_map(locations) {
             }
         })(marker, i));
 
+        // Add to local variables
         $.gigographics.markers[i] = marker;
         $.gigographics.content[i] = content;
 
@@ -114,26 +118,21 @@ function generate_map(locations) {
         i++;
     });
 
-    $(document).on("click", "a.play_song", function(e) {
-        var song = $(this).attr('data-song_title');
-        var artist = $(this).attr('data-artist_name');
-        return deezer_play_track(song, artist);
-    });
-    
     $('.concert_trigger').on('click', function(event) {
-        var i = $(this).attr('marker-index');
+        var i= $(this).attr('marker-index');
         infowindow.setContent($.gigographics.content[i]);
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
         var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
         $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
         instagram(locations[$(this).attr('marker-id')].pictures);
     });
-
+    
 }
 
 function instagram(data) {
     $('#instagram > ul').html('');
     $('#instagram').show();
+    console.log(data);
     $.each(data, function(key, value) {
         var li= $('<li>', {
             'class' : 'instagram_trigger'
