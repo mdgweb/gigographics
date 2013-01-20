@@ -117,6 +117,8 @@ function generate_map(locations) {
         i++;
     });
 
+    $.gigographics.map.panTo($.gigographics.markers[0].getPosition());
+
     $(document).on("click", "a.play_song", function(e) {
         var song = $(this).attr('data-song_title');
         var artist = $(this).attr('data-artist_name');
@@ -138,18 +140,16 @@ function generate_map(locations) {
 
 function instagram(data) {
     $('#instagram').html('');
-    $('#instagram').show();
+    $('#instagram').show("slide", { direction: "left" }, 1000);
     if(data) {
+        $('#instagram').append($('<div>', {id : 'galleria'}))
         $.each(data, function(key, value) {
-            var li= $('<a>', {
-                'href' : '#'
-            })
-            .append($('<img />', {
+            var li= $('<img />', {
                 'src' : value.standard
-            }));
-            $('#instagram').append(li);
+            });
+            $('#instagram > #galleria').append(li);
         });
-        var slider_options= {
+/*        var slider_options= {
             width : 400,
             height : 450,
             opacity : 1.0,
@@ -157,15 +157,20 @@ function instagram(data) {
         }
         slider_options.navigation = (data.length > 1) ? true: false;
         $('#instagram > a').ready(function() {
-            $('#instagram').coinslider(slider_options);
+*/
+        //Galleria.run('#galleria');
+        $('#galleria').galleria({
+            width: 400,
+            height: 450
         });
+//        });
     } else {
         $('#instagram').html('NO PICTURES FOUND');
     }
 }
 
 function offsetCenter(latlng,offsetx,offsety) {
-console.log(offsetx)
+
     var scale = Math.pow(2, $.gigographics.map.getZoom());
     var nw = new google.maps.LatLng(
         $.gigographics.map.getBounds().getNorthEast().lat(),

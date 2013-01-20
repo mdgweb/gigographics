@@ -101,6 +101,7 @@ a:hover {
     background: #555;
     opacity: 0.5;
     margin: 20px;
+    margin-right: 0px;
 }
 
 #concerts > #loading {
@@ -129,12 +130,14 @@ a:hover {
     display: none;
     color: #ddd;
     float: left;
-    width: 400px;
-    height: 450px;
+    width: 400px !important;
+    height: 450px !important;
     background: #555;
     margin: 20px;
+    margin-left: 0px;
 }
 
-#instagram img {
-    max-width: 100%;
+#galleria {
+    width: 400px;
+    height: 450px;
 }
