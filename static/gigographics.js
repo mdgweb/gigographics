@@ -30,13 +30,10 @@ window.onload = function() {
         }
     });
     
+    // Setup Deezer player
     set_deezer_player()
 
-//    $.gigographics = new Array();
-
-    /*
-     Basic Setup
-     */
+    // Prepare map
     var latLng = new google.maps.LatLng(59.32893,18.06491);
 
     var myOptions = {
@@ -58,9 +55,15 @@ window.onload = function() {
         mapTypeId: google.maps.MapTypeId.ROADMAP //   ROADMAP; SATELLITE; HYBRID; TERRAIN;
     };
 
-    $.gigographics.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    // Prepare global elements
+    $.gigographics = {
+        'map' : new google.maps.Map(document.getElementById("map_canvas"), myOptions),
+        'markers' : [],
+        'content' : [],
+    }
 }
 
+// Deezer player setup
 function set_deezer_player() {
     DZ.init({
         appId  : '111393',
@@ -75,6 +78,7 @@ function set_deezer_player() {
     });
 }
 
+// Play query in Deezer player
 function deezer_play(query) {
     DZ.api('/search/?q=' + query + '&index=0&nb_items=5&output=json', function(response) {
         var tracks = $.map(response.data, function(track) { return track.id })
@@ -83,10 +87,13 @@ function deezer_play(query) {
         }
     });
 }
+
+// Play track (artist name + track name) in Deezer player
 function deezer_play_track(artist_name, track_name) {
     return deezer_play(artist_name + '+' + track_name);
 }
 
+// Play arstist (top tracks) in Deezer player
 function deezer_play_artist(artist_name) {
     return deezer_play(artist_name);
 }

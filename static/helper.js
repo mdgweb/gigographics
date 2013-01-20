@@ -39,11 +39,6 @@ function generate_map(locations) {
 
     $('#instagram').hide();
 
-    $.gigographics = {
-        'markers' : [],
-        'content' : [],
-    }
-
     // Clear list
     $('#concerts > ul').html('');
     
@@ -124,6 +119,9 @@ function generate_map(locations) {
         var i = $(this).attr('marker-index');
         infowindow.setContent($.gigographics.content[i]);
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
+        console.log($.gigographics.markers);
+        console.log(i)
+        console.log($.gigographics.markers[i]);        
         var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
         $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
         instagram(locations[$(this).attr('marker-id')].pictures);
