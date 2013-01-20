@@ -29,8 +29,7 @@ def channel():
 @app.route('/gigographics/<artist_id>')
 def gigographics(artist_id):
     g = Gigographics(artist_id)
-    g.go()
-    return jsonify(g.data)
+    return jsonify(g.go())
 
 if __name__ == '__main__':
     app.debug = True
