@@ -46,12 +46,6 @@ window.onload = function() {
         }
     });
 
-    function deezer_artist_player(artist_name) {
-        DZ.api('/search/?q=' + artist_name + '&index=0&nb_items=5&output=json', function(response) {
-            var tracks = $.map(response.data, function(track) { return track.id })
-            DZ.player.playTracks(tracks);
-        });
-    }
 
     $.gigographics= new Array();
     $.gigographics.id= new Array();
@@ -84,3 +78,20 @@ window.onload = function() {
 
     $.gigographics.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 }
+
+function deezer_player(query) {
+    DZ.api('/search/?q=' + query + '&index=0&nb_items=5&output=json', function(response) {
+        var tracks = $.map(response.data, function(track) { return track.id })
+        if(tracks.length) {
+            DZ.player.playTracks(tracks);
+        }
+    });
+}
+function deezer_track_player(artist_name, track_name) {
+    return deezer_player(artist_name + '+' + track_name);
+}
+
+function deezer_artist_player(artist_name) {
+    return deezer_player(artist_name);
+}
+

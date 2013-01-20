@@ -50,6 +50,18 @@ function generate_map(locations) {
 
     $.each(locations, function(key, value) {
 
+
+        // Create setlist
+        var songs = value.songs;
+        var setlist = '';
+        if(songs != undefined) {
+            setlist = '<ul>';
+            $.each(songs, function(index, song) {
+                setlist += '<li><a href="#" class="play_song" data-song_title="' + song['title'] + '" data-artist_name="' + song['artist']['name'] + '">' + song['title'] + '</a></li>'
+            });
+            setlist += '</ul>'
+        }
+
         var venue= value.venue;
            
         // Generate markers
@@ -57,12 +69,11 @@ function generate_map(locations) {
             position: new google.maps.LatLng(venue.lat, venue.lng),
             map: $.gigographics.map
         });
-        var explanation= '<div class="concert_location">' +
-                        '<h4>' + venue.name + '</h4>' +
-                        //'LAT: ' + locations[i][1] +
-                        //'LONG: ' + locations[i][2] +<img src="slider-1.jpg" />
-                        '<a>Link to instagram images</a>' +
-                        '</div>'
+        var explanation = '' +
+            '<div class="concert_location">' +
+                '<h4>' + venue.name + '</h4>' +
+                setlist +
+            '</div>'
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
@@ -101,21 +112,27 @@ function generate_map(locations) {
         i++;
     });
 
+    $(document).on("click", "a.play_song", function(e) {
+        alert('c')
+        var song = $(this).attr('data-song_title');
+        var artist = $(this).attr('data-artist_name');
+        return deezer_track_player(song, artist);
+    });
+    
+    
     $('.concert_trigger').on('click', function(event) {
-        var i= $(this).attr('marker-index');
         infowindow.setContent($.gigographics.explanations[i]);
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
         var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
         $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
         instagram(locations[$(this).attr('marker-id')].pictures);
     });
-    
+
 }
 
 function instagram(data) {
     $('#instagram > ul').html('');
     $('#instagram').show();
-    console.log(data);
     $.each(data, function(key, value) {
         var li= $('<li>', {
             'class' : 'instagram_trigger'
