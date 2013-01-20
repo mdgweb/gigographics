@@ -129,3 +129,4 @@ class Gigographics(object):
         self.get_gigography()
         self.add_setlists()
         self.add_pictures()
+        return self.data
