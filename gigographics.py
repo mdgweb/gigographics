@@ -74,7 +74,7 @@ class Gigographics(object):
                         'name' : song['cover']['@name'] if song.get('cover') else setlist['artist']['@name'],
                         'mbz_id' : song['cover']['@mbid'] if song.get('cover') else self.mbz_id
                     },
-                    'cover' : song.get('cover', 0),
+                    'cover' : 1 if song.get('cover') else 0,
                     'title' : song['@name']
                     } for song_set in filter(lambda song: type(song) == dict, sets['set']) for song in song_set['song']]
                 ## Add songs to existing data
