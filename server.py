@@ -26,7 +26,7 @@ def channel():
     return render_template('channel.html')
 
 ## Gigographics data
-@app.route('/gigographics/<artist_id>')
+@app.route('/data/<artist_id>')
 def gigographics(artist_id):
     g = Gigographics(artist_id)
     return jsonify(g.go())

@@ -31,7 +31,7 @@ function concerts(artist_id, artist_name) {
     // Get concert data
     $.ajax({
         'type': "GET",
-        url: "/gigographics/" + artist_id,
+        url: "/data/" + artist_id,
         dataType: "json",
         success: function(data) {
            generate_map(data);
