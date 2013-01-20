@@ -140,8 +140,8 @@ function generate_map(locations) {
 
 function instagram(data) {
     $('#instagram').html('');
-    $('#instagram').show("slide", { direction: "left" }, 1000);
     if(data) {
+        $('#instagram').show("slide", { direction: "left" }, 1000);
         $('#instagram').append($('<div>', {id : 'galleria'}))
         $.each(data, function(key, value) {
             var li= $('<img />', {
@@ -165,7 +165,7 @@ function instagram(data) {
         });
 //        });
     } else {
-        $('#instagram').html('NO PICTURES FOUND');
+        $('#instagram').hide("slide", { direction: "left" }, 1000);
     }
 }
 
@@ -189,4 +189,14 @@ function offsetCenter(latlng,offsetx,offsety) {
 
     $.gigographics.map.panTo(newCenter);
 
+}
+
+function clear() {
+    $('#instagram').empty();
+    $('#instagram').hide("slide", { direction: "left" }, 1000);
+    $('#concerts > ul').empty();
+    for (var i=0; i < $.gigographics.markers.length; i++) {
+        $.gigographics.markers[i].setMap(null);
+    }
+    $('#concerts > #loading').show();
 }

@@ -23,6 +23,7 @@ window.onload = function() {
         select: function(event, ui) {
             var artist_id = ui.item.id;
             var artist_name = ui.item.label;
+            clear();
             concerts(artist_id, artist_name);
         }
     });
@@ -57,6 +58,7 @@ window.onload = function() {
         'map' : new google.maps.Map(document.getElementById("map_canvas"), myOptions),
         'markers' : [],
         'content' : [],
+        'mapOption' : myOptions
     }
     
 }
@@ -95,4 +97,3 @@ function deezer_play_track(artist_name, track_name) {
 function deezer_play_artist(artist_name) {
     return deezer_play(artist_name);
 }
-
