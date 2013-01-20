@@ -198,5 +198,6 @@ function clear() {
     for (var i=0; i < $.gigographics.markers.length; i++) {
         $.gigographics.markers[i].setMap(null);
     }
+    $.gigographics.markers.length = 0;
     $('#concerts > #loading').show();
 }
