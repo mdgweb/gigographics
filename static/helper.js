@@ -113,16 +113,29 @@ function generate_map(locations) {
 }
 
 function instagram(data) {
-    $('#instagram > ul').html('');
+    $('#instagram').html('');
     $('#instagram').show();
-    console.log(data);
-    $.each(data, function(key, value) {
-        var li= $('<li>', {
-            'class' : 'instagram_trigger'
-        })
-        .append($('<img />', {
-            'src' : value.thumbnail
-        }));
-        $('#instagram > ul').append(li);
-    });
+    if(data) {
+        $.each(data, function(key, value) {
+            var li= $('<a>', {
+                'href' : '#'
+            })
+            .append($('<img />', {
+                'src' : value.standard
+            }));
+            $('#instagram').append(li);
+        });
+        var slider_options= {
+            width : 400,
+            height : 450,
+            opacity : 1.0,
+            links : false
+        }
+        slider_options.navigation = (data.length > 1) ? true: false;
+        $('#instagram > a').ready(function() {
+            $('#instagram').coinslider(slider_options);
+        });
+    } else {
+        $('#instagram').html('NO PICTURES FOUND');
+    }
 }

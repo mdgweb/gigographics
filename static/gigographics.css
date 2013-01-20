@@ -83,7 +83,7 @@ a:hover {
 /* Concert section */
 #concerts {
     color: #ddd;
-    float: right;
+    float: left;
     width: 400px;
     height: 450px;
     background: #555;
@@ -120,6 +120,9 @@ a:hover {
     width: 400px;
     height: 450px;
     background: #555;
-    opacity: 0.5;
     margin: 20px;
+}
+
+#instagram img {
+    max-width: 100%;
 }
