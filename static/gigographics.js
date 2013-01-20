@@ -67,7 +67,7 @@ window.onload = function() {
 function set_deezer_player() {
     DZ.init({
         appId  : '111393',
-        channelUrl : 'http://localhost:5000/channel',
+        channelUrl : 'http://gigographics.mdg.io/channel',
         player : {
             container : 'player',
             cover : true,
