@@ -12,17 +12,22 @@ animation: google.maps.Animation.DROP
 }
 */	
 
-function concerts(artist_id, artist_name) {
-    // Play artist
-    deezer_play_artist(artist_name);
-    // Hide helper and show header + footer
+function hide_helper() {
     $('#helper').hide();
     $('footer').show();
     $('header').show();
+    $('#concerts').show();
+}
+
+function concerts(artist_id, artist_name) {
+    // Play artist
+    deezer_play_artist(artist_name);
+    
+    // Hide helper and show header + footer
+    hide_helper()
 
     // Show concerts section
     $('#concerts h1').text(artist_name);
-    $('#concerts').show();
     // Get concert data
     $.ajax({
         'type': "GET",
