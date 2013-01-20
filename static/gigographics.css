@@ -55,6 +55,8 @@ a:hover {
 
 
 .concert_location {
+    max-height: 200px;
+    min-width: 100px;
     h4 {
         display: block;
         margin-bottom: 2px;
