@@ -8,7 +8,7 @@ var image = 'yourflag.png';
 icon: image
 
 //for animation marker drop
-animation: google.maps.Animation.DROP    
+animation: google.maps.Animation.DROP
 }
 */	
 
@@ -24,7 +24,7 @@ function concerts(artist_id, artist_name) {
     // Get concert data
     $.ajax({
         'type': "GET",
-        url: "http://localhost:5000/gigographics/" + artist_id,
+        url: "/gigographics/" + artist_id,
         dataType: "json",
         success: function(data) {
            generate_map(data);
@@ -36,7 +36,6 @@ function concerts(artist_id, artist_name) {
 }
 
 function generate_map(locations) {
-
     $('#instagram').hide();
 
     // Clear list
@@ -119,9 +118,6 @@ function generate_map(locations) {
         var i = $(this).attr('marker-index');
         infowindow.setContent($.gigographics.content[i]);
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
-        console.log($.gigographics.markers);
-        console.log(i)
-        console.log($.gigographics.markers[i]);        
         var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
         $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
         instagram(locations[$(this).attr('marker-id')].pictures);
