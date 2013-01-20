@@ -187,6 +187,7 @@ function sortObj(arr){
         sortedKeys.push(i);
     }
     sortedKeys.sort();
+    sortedKeys.reverse();
     // Reconstruct sorted obj based on keys
     for (var i in sortedKeys){
         sortedObj[sortedKeys[i]] = arr[sortedKeys[i]];
