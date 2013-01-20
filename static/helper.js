@@ -83,7 +83,9 @@ function generate_map(locations) {
                 infowindow.setContent(content);
                 infowindow.open($.gigographics.map, marker);
                 var latLng = marker.getPosition(); // returns LatLng object
-                $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
+//                $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
+                var offset= ($(document).width() - 800) / 2;
+                offsetCenter(latLng, offset, 0);
                 instagram(value.pictures, i);
             }
         })(marker, i));
@@ -126,22 +128,60 @@ function generate_map(locations) {
         infowindow.setContent($.gigographics.content[i]);
         infowindow.open($.gigographics.map, $.gigographics.markers[i]);
         var latLng = $.gigographics.markers[i].getPosition(); // returns LatLng object
-        $.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
+        //$.gigographics.map.setCenter(latLng); // setCenter takes a LatLng object
+        var offset= ($(document).width() - 800) / 2;
+        offsetCenter(latLng, offset, 0);
         instagram(locations[$(this).attr('marker-id')].pictures);
     });
 
 }
 
 function instagram(data) {
-    $('#instagram > ul').html('');
+    $('#instagram').html('');
     $('#instagram').show();
-    $.each(data, function(key, value) {
-        var li= $('<li>', {
-            'class' : 'instagram_trigger'
-        })
-        .append($('<img />', {
-            'src' : value.thumbnail
-        }));
-        $('#instagram > ul').append(li);
-    });
+    if(data) {
+        $.each(data, function(key, value) {
+            var li= $('<a>', {
+                'href' : '#'
+            })
+            .append($('<img />', {
+                'src' : value.standard
+            }));
+            $('#instagram').append(li);
+        });
+        var slider_options= {
+            width : 400,
+            height : 450,
+            opacity : 1.0,
+            links : false
+        }
+        slider_options.navigation = (data.length > 1) ? true: false;
+        $('#instagram > a').ready(function() {
+            $('#instagram').coinslider(slider_options);
+        });
+    } else {
+        $('#instagram').html('NO PICTURES FOUND');
+    }
+}
+
+function offsetCenter(latlng,offsetx,offsety) {
+console.log(offsetx)
+    var scale = Math.pow(2, $.gigographics.map.getZoom());
+    var nw = new google.maps.LatLng(
+        $.gigographics.map.getBounds().getNorthEast().lat(),
+        $.gigographics.map.getBounds().getSouthWest().lng()
+    );
+
+    var worldCoordinateCenter = $.gigographics.map.getProjection().fromLatLngToPoint(latlng);
+    var pixelOffset = new google.maps.Point((offsetx/scale) || 0,(offsety/scale) ||0)
+
+    var worldCoordinateNewCenter = new google.maps.Point(
+        worldCoordinateCenter.x - pixelOffset.x,
+        worldCoordinateCenter.y + pixelOffset.y
+    );
+
+    var newCenter = $.gigographics.map.getProjection().fromPointToLatLng(worldCoordinateNewCenter);
+
+    $.gigographics.map.panTo(newCenter);
+
 }
