@@ -52,6 +52,8 @@ function generate_map(locations) {
 
     var marker, i= 0;
 
+    locations= sortObj(locations);
+
     $.each(locations, function(key, value) {
 
         // Create setlist
@@ -201,3 +203,20 @@ function clear() {
     $.gigographics.markers.length = 0;
     $('#concerts > #loading').show();
 }
+
+function sortObj(arr){
+    // Setup Arrays
+    var sortedKeys = new Array();
+    var sortedObj = {};
+    // Separate keys and sort them
+    for (var i in arr){
+        sortedKeys.push(i);
+    }
+    sortedKeys.sort();
+    // Reconstruct sorted obj based on keys
+    for (var i in sortedKeys){
+        sortedObj[sortedKeys[i]] = arr[sortedKeys[i]];
+    }
+    return sortedObj;
+}
+
