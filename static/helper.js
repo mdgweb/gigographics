@@ -43,7 +43,6 @@ function generate_map(locations) {
     // Clear list
     $('#concerts > ul').html('');
     
-
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i= 0;
@@ -113,7 +112,6 @@ function generate_map(locations) {
     });
 
     $(document).on("click", "a.play_song", function(e) {
-        alert('c')
         var song = $(this).attr('data-song_title');
         var artist = $(this).attr('data-artist_name');
         return deezer_track_player(song, artist);
