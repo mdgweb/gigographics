@@ -74,6 +74,7 @@ class Gigographics(object):
                         'name' : song['cover']['@name'] if song.get('cover') else setlist['artist']['@name'],
                         'mbz_id' : song['cover']['@mbid'] if song.get('cover') else self.mbz_id
                     },
+                    'cover' : song.get('cover', 0),
                     'title' : song['@name']
                     } for song_set in filter(lambda song: type(song) == dict, sets['set']) for song in song_set['song']]
                 ## Add songs to existing data
@@ -85,7 +86,7 @@ class Gigographics(object):
                         'lastfm_id' : setlist.get('@lastFmEventId'),
                         'setlist_id' : setlist.get('@id')
                     })
-        
+
     def get_gigography(self):
         """Get SongKick gigography for an artist"""
 
@@ -108,7 +109,7 @@ class Gigographics(object):
                 continue ## FIXME
 
             ## Append to dictionary
-            
+
             self.data[event_id] = {
                 'name' : event.display_name,
                 'songkick_id' : event.id,
