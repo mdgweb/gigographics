@@ -4,18 +4,15 @@ window.onload = function() {
     $(".artist").autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: "http://api.songkick.com/api/3.0/search/artists.json?apikey=hackday&query=" + request.term + "&jsoncallback=?",
-                dataType: "jsonp",
+                url: "/search/" + request.term,
+                dataType: "json",
                 success: function(data) {
-                    var artists = data.resultsPage.results.artist;
-                    if (artists != undefined) {
-                        response($.map(artists, function(artist) {
-                            return {
-                                label: artist.displayName,
-                                id: artist.id
-                            }
-                        }));
-                    }
+                    response($.map(data.results, function(artist) {
+                        return {
+                            label: artist.name,
+                            id: artist.id
+                        }
+                    }));
                 },
                 error: function(error) {
                     console.log(error);
