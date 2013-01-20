@@ -5,6 +5,7 @@ from flask import Flask, jsonify, render_template, abort
 from settings import songkick_key
 
 from gigographics import Gigographics
+from search import Search
 
 ## Flask APP
 app = Flask(__name__)
@@ -14,6 +15,11 @@ app = Flask(__name__)
 def home():
     return render_template('index.html', songkick_key = songkick_key)
 
+## Search/autocomplete
+@app.route('/search/<query>')
+def search(query):
+    return jsonify(Search(query).go())
+
 ## Deezer channel file
 @app.route('/channel')
 def channel():
@@ -22,7 +28,6 @@ def channel():
 ## Gigographics data
 @app.route('/gigographics/<artist_id>')
 def gigographics(artist_id):
-    artist_id = 'e8374874-4178-4869-b92e-fef6bf30dc04' ## Hardcoded while we fi the autocomplete with MBZ IDs
     g = Gigographics(artist_id)
     g.go()
     return jsonify(g.data)
