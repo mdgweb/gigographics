@@ -1,5 +1,5 @@
 window.onload = function() {
-
+    
     // Autocompletion for artists
     $(".artist").autocomplete({
         source: function(request, response) {
@@ -23,7 +23,6 @@ window.onload = function() {
         select: function(event, ui) {
             var artist_id = ui.item.id;
             var artist_name = ui.item.label;
-            clear();
             concerts(artist_id, artist_name);
         }
     });
@@ -32,8 +31,7 @@ window.onload = function() {
     set_deezer_player()
 
     // Prepare map
-    var latLng = new google.maps.LatLng(59.32893,18.06491);
-
+    var latLng = new google.maps.LatLng(59.32893,18.06491); // Stockholm
     var myOptions = {
         panControl: false,
         zoomControl: true,
@@ -46,7 +44,7 @@ window.onload = function() {
         streetViewControl: false,
         overviewMapControl: false,
         draggable: true,
-        disableDoubleClickZoom: true,     //disable zooming
+        disableDoubleClickZoom: true, //disable zooming
         scrollwheel: true,
         zoom: 4,
         center: latLng,
@@ -61,6 +59,11 @@ window.onload = function() {
         'mapOption' : myOptions
     }
     
+    // Run if there's an ID
+    var split = document.URL.split('?id=');
+    if(split.length==2) {
+        concerts(split[1])
+    };
 }
 
 // Deezer player setup
