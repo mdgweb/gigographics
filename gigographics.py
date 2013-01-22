@@ -8,6 +8,7 @@ import calendar
 from settings import instagram_client, instagram_secret, songkick_key, max_gigs
 
 from instagram.client import InstagramAPI
+from instagram.bind import InstagramClientError, InstagramAPIError
 from songkick import Songkick
 
 class Gigographics(object):
@@ -16,7 +17,7 @@ class Gigographics(object):
         self.mbz_id = mbz_id
         self.data = {}
         
-    def instagram_pictures(self, venue, timestamp, window, distance):
+    def instagram_pictures(self, venue, timestamp, window, distance, retry=True):
         """Get Instagram pictures for a venue/location in a give timeframe"""
         
         ## Get instagram pictures taken nearby the venue in a time window around the start date
@@ -24,6 +25,7 @@ class Gigographics(object):
         min_timestamp = timestamp - window[0]*3600
         max_timestamp = timestamp + window[1]*3600
 
+        ## Retry to intercept the random "Oops, an error occurred" answer and other API errors - retry only once
         try:
             media = instagram.media_search(lat=venue['lat'], lng=venue['lng'], min_timestamp=min_timestamp, max_timestamp=max_timestamp, distance=distance)
         
@@ -38,9 +40,12 @@ class Gigographics(object):
                 'user' : media.user.username,
             }, media)
 
-        ## Instagram API errors
-        except:
-            return []
+        ## Instagram API errors (retry only once)
+        except InstagramAPIError as e:
+            if e.status_code == '400' and retry:
+                return self.instagram_pictures(venue, timestamp, window, distance, retry=False)
+        except InstagramClientError as e:
+            return self.instagram_pictures(venue, timestamp, window, distance, retry=False)
 
     def add_pictures(self):
         """Get all pictures from artist's gigography"""
