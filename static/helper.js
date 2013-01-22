@@ -10,6 +10,12 @@ function hide_helper() {
 }
 
 function concerts(artist_id, artist_name) {
+    
+    var artist_name = artist_name || '';
+    
+    // Clear data
+    clear();
+    
     // Play artist
     deezer_play_artist(artist_name);
     
@@ -34,6 +40,11 @@ function concerts(artist_id, artist_name) {
 
 function generate_map(locations) {
     $('#instagram').hide();
+
+    // Artist name if not already there
+    if($('#concerts h1').text() == '') {
+        $('#concerts h1').text(locations['artist']['name']);
+    }
 
     // Clear list
     $('#concerts > ul').html('');
@@ -139,7 +150,6 @@ function instagram(data) {
             width: 400,
             height: 450
         });
-//        });
     } else {
         $('#instagram').hide("slide", { direction: "left" }, 1000);
     }
