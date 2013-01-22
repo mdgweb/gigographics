@@ -16,7 +16,7 @@ class Gigographics(object):
 
     def __init__(self, mbz_id):
         self.mbz_id = mbz_id
-        musicbrainzngs.set_useragent("mdg.io", "0.1", "http://mdg.io")
+        musicbrainzngs.set_useragent("gigographics.mdg.io", "0.1", "http://gigographics.mdg.io")
         self.data = {
             'artist' : {
                 'name' : musicbrainzngs.get_artist_by_id(self.mbz_id)['artist']['name'],
