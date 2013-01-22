@@ -61,6 +61,8 @@ class Gigographics(object):
             ## Get instagram pictures taken from 2-hours-before to 4-hours-after a show for the venue name + location
             window = [1,3]
             distance = 0.01
+            if not gig.get('venue'):
+                continue
             pictures = self.instagram_pictures(gig['venue'], gig['timestamp'], window, distance)
             ## Add pictures if anything available
             if pictures:
@@ -88,7 +90,10 @@ class Gigographics(object):
                     },
                     'cover' : 1 if song.get('cover') else 0,
                     'title' : song['@name']
-                    } for song_set in filter(lambda song: type(song) == dict, sets['set']) for song in song_set['song']]
+                    } for song_set in filter(lambda song_set: type(song_set) == dict, sets['set']) \
+                        for song in filter(lambda song: type(song) == dict, song_set['song'])]
+                #} for song_set in sets['set'] for song in filter(lambda song: type(song) == dict, song_set['song'])]
+
                 ## Add songs to existing data
                 if songs and self.data.get(event_id):
                     self.data[event_id].update({
