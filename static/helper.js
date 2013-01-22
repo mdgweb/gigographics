@@ -60,6 +60,12 @@ function generate_map(locations) {
     locations= sortObj(locations);
 
     $.each(locations, function(key, value) {
+        
+        console.log(venue.lat);
+        console.log(venue.long);
+        if(!(venue.lat && venue.lng)) {
+            continue;
+        }
 
         // Create setlist
         var songs = value.songs;
