@@ -10,12 +10,19 @@ from settings import instagram_client, instagram_secret, songkick_key, max_gigs
 from instagram.client import InstagramAPI
 from instagram.bind import InstagramClientError, InstagramAPIError
 from songkick import Songkick
+import musicbrainzngs
 
 class Gigographics(object):
 
     def __init__(self, mbz_id):
         self.mbz_id = mbz_id
-        self.data = {}
+        musicbrainzngs.set_useragent("mdg.io", "0.1", "http://mdg.io")
+        self.data = {
+            'artist' : {
+                'name' : musicbrainzngs.get_artist_by_id(self.mbz_id)['artist']['name'],
+                'mbz_id' : self.mbz_id
+            }
+        }
         
     def instagram_pictures(self, venue, timestamp, window, distance, retry=True):
         """Get Instagram pictures for a venue/location in a give timeframe"""
