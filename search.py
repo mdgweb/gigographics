@@ -7,7 +7,7 @@ class Search(object):
 
     def __init__(self, query):
         self.query = query
-        musicbrainzngs.set_useragent("mdg.io", "0.1", "http://mdg.io")
+        musicbrainzngs.set_useragent("gigographics.mdg.io", "0.1", "http://gigographics.mdg.io")
 
     def go(self):
         query = self.query.lower() + '*'
