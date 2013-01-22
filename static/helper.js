@@ -66,7 +66,7 @@ function generate_map(locations) {
         });
         var content = '' +
             '<div class="concert_location">' +
-                '<h4>' + venue.name + '</h4>' +
+                '<h4>' + value.name + '</h4>' +
                 setlist +
             '</div>'
 
