@@ -61,7 +61,7 @@ function generate_map(locations) {
 
     $.each(locations, function(key, value) {
         
-        if(!(venue.lat && venue.lng)) {
+        if(!venue || venue==undefined || !(venue.lat && venue.lng)) {
             return true;
         }
 
