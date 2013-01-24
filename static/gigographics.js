@@ -19,12 +19,12 @@ window.onload = function() {
                 }
             });
         },
-        minLength: 3,
         select: function(event, ui) {
             var artist_id = ui.item.id;
             var artist_name = ui.item.label;
-            concerts(artist_id, artist_name);
-        }
+            return concerts(artist_id, artist_name);
+        },
+        minLength: 3
     });
     
     // Setup Deezer player
@@ -60,10 +60,10 @@ window.onload = function() {
     }
     
     // Run if there's an ID
-    var split = document.URL.split('?id=');
-    if(split.length==2) {
-        concerts(split[1])
-    };
+//    var split = document.URL.split('?id=');
+  //  if(split.length==2) {
+    //    concerts(split[1])
+//    };
 }
 
 // Deezer player setup

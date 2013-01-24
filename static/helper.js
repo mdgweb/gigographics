@@ -24,7 +24,7 @@ function concerts(artist_id, artist_name) {
     deezer_play_artist(artist_name);
     
     // Hide helper and show header + footer
-    hide_helper()
+    hide_helper();
 
     // Show concerts section
     $('#concerts h1').text(artist_name);
@@ -62,7 +62,7 @@ function generate_map(locations) {
     $.each(locations, function(key, value) {
         
         if(!(venue.lat && venue.lng)) {
-            continue();
+            return true;
         }
 
         // Create setlist
